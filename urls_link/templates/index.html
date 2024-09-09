@@ -1,0 +1,55 @@
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <title>Urls Shortener</title>
+</head>
+<body>
+    <div class="container-sm">
+        <div class="card row">
+            <div class="card-header" style="text-align: center; color:blueviolet; font: 1em sans-serif; font-size: 1cm;">Kay link</div>
+            <fieldset>
+                <h5>{{display}}</h5>
+                <form class="card-body" action="" method="post">
+                    {% csrf_token %}
+                    {{forms.as_p}}
+                    <input type="submit" class="btn btn-primary" value="Generate">
+                </form>
+            </fieldset>
+            <div class="table-responsive mt-3">
+                <table class="table">
+                    <thead>
+                        <tr class="table-dark">
+                            <th>S/N</th>
+                            <th>Short link</th>
+                            <th>Website address</th>
+                        </tr>
+                    </thead>
+                    {% for url in new_urls %}
+                    <tbody>
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td><a href="http://127.0.0.1:8000/{{url.new_url}}">http://127.0.0.1:8000/{{url.new_url}}</a></td>
+                            <td><a href="{{url.url}}">{{url.url}}</a></td>
+                        </tr>
+                    </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="text-center">
+            <span>
+                copyright &copy;
+                <script>document.write(new Date().getFullYear())</script> Kay Project.
+            </span>
+        </div>
+    </footer>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+</html>
